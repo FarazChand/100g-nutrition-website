@@ -11,6 +11,7 @@ const ROUTES = [
 ];
 
 const Navbar = () => {
+  // Mobile Nav State
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [navTransitionClasses, setNavTransitionClasses] = useState(
     "sm-max:translate-x-full",
@@ -42,11 +43,13 @@ const Navbar = () => {
 
       {/* Nav List */}
       <ul
-        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[50%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:grow  sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%]  ${navTransitionClasses}`}
+        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[65%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:grow  sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%]  ${navTransitionClasses}`}
       >
         {ROUTES.map((route, i) => (
           <li
-            className={`transition delay-${i * 100} duration-1000 ${linkSlideIn}`}
+            key={i}
+            style={{ transitionDelay: `${i * 100}ms` }}
+            className={`transition duration-1000 ${linkSlideIn} flex w-full items-center justify-center`}
           >
             <NavLink
               to={route.path}
