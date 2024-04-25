@@ -1,5 +1,14 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import Burger from "../BurgerIcon/Burger";
+
+const ROUTES = [
+  { name: "Home", path: "/" },
+  { name: "Guide", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
 
 const Navbar = () => {
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -23,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-[0] flex min-h-[8vh] items-center justify-around bg-gray-300 ">
+    <nav className="sm-max:h-[4rem] sticky top-[0] flex h-[5rem] items-center justify-around bg-gray-300 ">
       {/* Logo */}
       <div>
         <h4 className="text-xl uppercase tracking-[.3125em]">
@@ -33,40 +42,20 @@ const Navbar = () => {
 
       {/* Nav List */}
       <ul
-        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[8vh] sm-max:flex sm-max:h-[92vh] sm-max:w-[50%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%]  ${navTransitionClasses}`}
+        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[50%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:grow  sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%]  ${navTransitionClasses}`}
       >
-        <li className={`transition duration-1000 ${linkSlideIn}`}>
-          <a
-            href="#"
-            className="text-sm font-semibold tracking-widest no-underline"
+        {ROUTES.map((route, i) => (
+          <li
+            className={`transition delay-${i * 100} duration-1000 ${linkSlideIn}`}
           >
-            Home
-          </a>
-        </li>
-        <li className={`transition delay-100 duration-1000 ${linkSlideIn}`}>
-          <a
-            href="#"
-            className="text-sm font-semibold tracking-widest no-underline"
-          >
-            Guide
-          </a>
-        </li>
-        <li className={`transition delay-200 duration-1000 ${linkSlideIn}`}>
-          <a
-            href="#"
-            className="text-sm font-semibold tracking-widest no-underline"
-          >
-            About
-          </a>
-        </li>
-        <li className={`transition delay-300 duration-1000 ${linkSlideIn}`}>
-          <a
-            href="#"
-            className="text-sm font-semibold tracking-widest no-underline"
-          >
-            Contact
-          </a>
-        </li>
+            <NavLink
+              to={route.path}
+              className="text-sm font-semibold tracking-widest no-underline"
+            >
+              {route.name}
+            </NavLink>
+          </li>
+        ))}
       </ul>
 
       <Burger navHandler={toggleNavHandler} isOpen={navIsOpen}></Burger>
