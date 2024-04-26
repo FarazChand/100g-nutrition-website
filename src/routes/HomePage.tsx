@@ -1,3 +1,11 @@
+import Hero from "../components/Hero";
+import SearchBar from "../components/SearchBar";
+
 export default function HomePage() {
-  return <div>This is the HomePage</div>;
+  return (
+    <main>
+      <Hero />
+      <SearchBar />
+    </main>
+  );
 }

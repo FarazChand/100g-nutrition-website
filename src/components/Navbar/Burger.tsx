@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-const Burger = ({ isOpen, navHandler }) => {
-  // const { isOpen, navHandler } = props;
+type BurgerProps = {
+  isOpen: boolean;
+  navHandler: () => void;
+};
 
+const Burger = ({ isOpen, navHandler }: BurgerProps) => {
   const burgerState = {
     line1Rotate: !isOpen
       ? "rotate-0 translate-x-[0px] translate-y-[0px] rounded-sm"

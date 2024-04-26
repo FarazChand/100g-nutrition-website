@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import Burger from "../BurgerIcon/Burger";
+import Burger from "./Burger";
 
 const ROUTES = [
   { name: "Home", path: "/" },
@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sm-max:h-[4rem] sticky top-[0] flex h-[5rem] items-center justify-around bg-gray-300 ">
+    <nav className="sm-max:h-[4rem] sticky top-[0] z-20 flex h-[5rem] items-center justify-around bg-gray-300">
       {/* Logo */}
       <div>
         <h4 className="text-xl uppercase tracking-[.3125em]">
@@ -43,7 +43,7 @@ const Navbar = () => {
 
       {/* Nav List */}
       <ul
-        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[65%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:grow  sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%]  ${navTransitionClasses}`}
+        className={`sm-max:fixed sm-max:right-[0px] sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[65%] sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:grow  sm-max:bg-gray-200 flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%] ${navTransitionClasses}`}
       >
         {ROUTES.map((route, i) => (
           <li

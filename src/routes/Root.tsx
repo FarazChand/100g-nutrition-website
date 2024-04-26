@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 export default function Root() {
   return (
-    <div>
+    <div className="flex min-h-[100vh] flex-col">
       <Header />
       <Outlet />
       <Footer />

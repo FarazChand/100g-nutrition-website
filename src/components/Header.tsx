@@ -1,4 +1,4 @@
-import Navbar from "./Navbar.tsx/Navbar";
+import Navbar from "./Navbar/Navbar";
 
 export default function Header() {
   return (
