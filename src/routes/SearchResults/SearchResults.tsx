@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
-const API_END_POINT = "https://api.nal.usda.gov/fdc/v1/search";
+import { BASE_API_URL, API_KEY } from "../../lib/constants.js";
+
+console.log(BASE_API_URL, API_KEY);
+
+// const API_END_POINT = "https://api.nal.usda.gov/fdc/v1/search";
 // Will add api key on next commit
 
 export default function SearchResults() {
@@ -20,7 +24,7 @@ export default function SearchResults() {
 
   const fetchSearchResults = async (searchTerm: string) => {
     const response = await fetch(
-      `${API_END_POINT}?api_key=${API_KEY}&query=+${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+      `${BASE_API_URL}?api_key=${API_KEY}&query=+${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
     );
 
     if (!response.ok) {
