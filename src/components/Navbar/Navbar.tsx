@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sm-max:h-[4rem] sticky top-[0] z-20 flex h-[5rem] items-center justify-around bg-gray-300">
+    <nav className="sm-max:h-[4rem] sticky top-[0] z-20 flex h-[5rem] items-center justify-around bg-gray-100">
       {/* Logo */}
       <div>
         <h4 className="text-xl uppercase tracking-[.3125em]">
