@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function SearchBar() {
+type SearchBarProps = {
+  resetPage?: () => void;
+};
+
+export default function SearchBar({ resetPage }: SearchBarProps) {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
 
-  const searchInputChangeHandler = (event) => {
+  const searchInputChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setSearchInput(event.target.value);
   };
 
-  const onSubmitSearch = () => {
+  const onSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (resetPage) resetPage();
     navigate(`/search-results/${searchInput}`);
   };
 
@@ -26,8 +34,6 @@ export default function SearchBar() {
         className=" w-full rounded border-2 border-black px-3 py-1.5 text-black sm:mr-2 sm:w-10/12 sm:flex-grow "
       />
       <button className="mb-2 w-full max-w-full rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-700 sm:mb-0 sm:w-max">
-        {/* <label htmlFor="search-bar">Search</label>
-         */}
         Search
       </button>
     </form>

@@ -1,58 +1,75 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
-// can get your own api key from: https://fdc.nal.usda.gov/api-guide.html
-import { BASE_API_URL, API_KEY } from "../../lib/constants.ts";
+import { usePageResults, useSearchResults } from "../../lib/customHooks.ts";
+import SearchBar from "../../components/SearchBar.tsx";
+import { sortBrandItems, sortRawItems } from "../../lib/util.ts";
+import { RESULTS_PER_PAGE } from "../../lib/constants.ts";
 
 export default function SearchResults() {
+  const { currentPage, handleNextPage, handlePrevPage, resetPage } =
+    usePageResults();
+
   const { searchInput } = useParams();
 
+  let searchTermLength = 0;
+
   if (!searchInput) {
-    return;
+    return (
+      <main>
+        <h2>Something went wrong</h2>
+      </main>
+    );
   }
 
   const enhancedSearchTerm = searchInput
     .split(" ")
     .map((word) => {
+      searchTermLength++;
       return `+${word}`;
     })
     .join(" ");
 
-  const fetchSearchResults = async (searchTerm: string) => {
-    const response = await fetch(
-      `${BASE_API_URL}?api_key=${API_KEY}&query=+${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+  const { searchResults, isLoading } = useSearchResults(enhancedSearchTerm);
+
+  if (!searchResults) {
+    return (
+      <main>
+        <h2>Loading...</h2>
+      </main>
     );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.description);
-    }
-
-    const data = await response.json();
-    return data;
-  };
-
-  function useSearchResults(searchTerm: string) {
-    const { data, isInitialLoading } = useQuery(
-      ["search-term", searchTerm],
-      () => fetchSearchResults(searchTerm),
-      {
-        staleTime: 1000 * 60 * 60,
-        refetchOnWindowFocus: false,
-        retry: false,
-        enabled: Boolean(searchTerm),
-        //   onError: handleError,
-      },
-    );
-
-    return {
-      searchResults: data?.foods,
-      isLoading: isInitialLoading,
-    } as const;
   }
 
-  const data = useSearchResults(enhancedSearchTerm);
-  console.log(data);
+  const numberOfPages = searchResults.length / RESULTS_PER_PAGE;
+  const currentPageResults = [];
+  let sortedResults = [...searchResults];
 
-  return <div>{`${searchInput}`}</div>;
+  // sets preference for raw items when searching for one term (most likely desired result e.g. beef, chicken etc.)
+  if (searchTermLength === 1) sortedResults = sortRawItems(sortedResults);
+  // setting brand named items last makes the initial output cleaner
+  sortedResults = sortBrandItems(sortedResults);
+
+  for (
+    let i = currentPage * RESULTS_PER_PAGE;
+    i < (currentPage + 1) * RESULTS_PER_PAGE;
+    i++
+  ) {
+    if (!searchResults[i]) continue;
+    currentPageResults.push(sortedResults[i]);
+  }
+
+  return (
+    <main>
+      <SearchBar resetPage={resetPage} />
+      {currentPageResults?.map((searchResult) => (
+        <li key={searchResult.fdcId}>{searchResult.description}</li>
+      ))}
+
+      <div className="flex gap-3">
+        {currentPage !== 0 && <button onClick={handlePrevPage}>Prev</button>}
+        {currentPage < numberOfPages - 1 && (
+          <button onClick={() => handleNextPage(numberOfPages)}>Next</button>
+        )}
+      </div>
+    </main>
+  );
 }
