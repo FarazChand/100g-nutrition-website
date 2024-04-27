@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
-import { BASE_API_URL, API_KEY } from "../../lib/constants.js";
-
-console.log(BASE_API_URL, API_KEY);
-
-// const API_END_POINT = "https://api.nal.usda.gov/fdc/v1/search";
-// Will add api key on next commit
+// can get your own api key from: https://fdc.nal.usda.gov/api-guide.html
+import { BASE_API_URL, API_KEY } from "../../lib/constants.ts";
 
 export default function SearchResults() {
   const { searchInput } = useParams();
@@ -33,7 +29,6 @@ export default function SearchResults() {
     }
 
     const data = await response.json();
-    // console.log(data);
     return data;
   };
 
