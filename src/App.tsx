@@ -4,7 +4,8 @@ import HomePage from "./routes/HomePage";
 import Root from "./routes/Root";
 import AboutPage from "./routes/AboutPage/AboutPage";
 import ContactPage from "./routes/ContactPage/ContactPage";
-import SearchResults from "./routes/SearchResults/SearchResults";
+import SearchResultsPage from "./routes/SearchResultsPage/SearchResultsPage";
+import ItemDetailsPage from "./routes/ItemDetailsPage/ItemDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
       { path: "contact", element: <ContactPage /> },
       {
         path: "search-results",
-        children: [{ path: ":searchInput", element: <SearchResults /> }],
+        children: [{ path: ":searchInput", element: <SearchResultsPage /> }],
+      },
+      {
+        path: "item-details",
+        children: [{ path: ":itemId", element: <ItemDetailsPage /> }],
       },
     ],
   },

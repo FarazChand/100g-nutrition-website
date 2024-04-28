@@ -1,13 +1,9 @@
 export type TestingType = string;
 
 export type SearchResultsItem = {
-  fdcId: number;
+  fdcId: string;
   description: string;
   dataType: string;
-};
-
-export type SearchResultsResponse = {
-  foods: SearchResultsItem[];
 };
 
 export type SearchResultsQueryResponse = {

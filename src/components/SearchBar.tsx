@@ -17,6 +17,7 @@ export default function SearchBar({ resetPage }: SearchBarProps) {
 
   const onSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!searchInput) return;
     if (resetPage) resetPage();
     navigate(`/search-results/${searchInput}`);
   };
@@ -24,7 +25,7 @@ export default function SearchBar({ resetPage }: SearchBarProps) {
   return (
     <form
       onSubmit={onSubmitSearch}
-      className="mx-auto flex w-[90vw] flex-col items-center justify-center gap-2 sm:mb-2 sm:max-w-[400px]  sm:flex-row sm:justify-center"
+      className="mx-auto flex max-w-[90vw] flex-col items-center justify-center gap-2 sm:mb-2 sm:max-w-[400px]  sm:flex-row sm:justify-center"
     >
       <input
         id="search-bar"

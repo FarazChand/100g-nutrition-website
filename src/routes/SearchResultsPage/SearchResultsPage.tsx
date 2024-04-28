@@ -2,16 +2,20 @@ import { useParams } from "react-router-dom";
 
 import { usePageResults, useSearchResults } from "../../lib/customHooks.ts";
 import SearchBar from "../../components/SearchBar.tsx";
-import { sortBrandItems, sortRawItems } from "../../lib/util.ts";
+import {
+  enhanceSearchTerm,
+  sortBrandItems,
+  sortRawItems,
+} from "../../lib/util.ts";
 import { RESULTS_PER_PAGE } from "../../lib/constants.ts";
+import SearchResults from "./SearchResults.tsx";
+import Button from "../../components/Button.tsx";
 
-export default function SearchResults() {
+export default function SearchResultsPage() {
   const { currentPage, handleNextPage, handlePrevPage, resetPage } =
     usePageResults();
 
   const { searchInput } = useParams();
-
-  let searchTermLength = 0;
 
   if (!searchInput) {
     return (
@@ -21,13 +25,8 @@ export default function SearchResults() {
     );
   }
 
-  const enhancedSearchTerm = searchInput
-    .split(" ")
-    .map((word) => {
-      searchTermLength++;
-      return `+${word}`;
-    })
-    .join(" ");
+  const { enhancedSearchTerm, searchTermLength } =
+    enhanceSearchTerm(searchInput);
 
   const { searchResults, isLoading } = useSearchResults(enhancedSearchTerm);
 
@@ -40,6 +39,8 @@ export default function SearchResults() {
   }
 
   const numberOfPages = searchResults.length / RESULTS_PER_PAGE;
+  const onFirstPage = !(currentPage !== 0);
+  const onLastPage = !(currentPage < numberOfPages - 1);
   const currentPageResults = [];
   let sortedResults = [...searchResults];
 
@@ -58,16 +59,18 @@ export default function SearchResults() {
   }
 
   return (
-    <main>
+    <main className="mx-auto w-10/12 max-w-3xl py-10">
       <SearchBar resetPage={resetPage} />
-      {currentPageResults?.map((searchResult) => (
-        <li key={searchResult.fdcId}>{searchResult.description}</li>
-      ))}
 
-      <div className="flex gap-3">
-        {currentPage !== 0 && <button onClick={handlePrevPage}>Prev</button>}
-        {currentPage < numberOfPages - 1 && (
-          <button onClick={() => handleNextPage(numberOfPages)}>Next</button>
+      <SearchResults currentPageResults={currentPageResults} />
+
+      <div className="mt-2 flex justify-center gap-3">
+        {!onFirstPage && <Button onClick={handlePrevPage} buttonText="Prev" />}
+        {!onLastPage && (
+          <Button
+            onClick={() => handleNextPage(numberOfPages)}
+            buttonText="Next"
+          />
         )}
       </div>
     </main>

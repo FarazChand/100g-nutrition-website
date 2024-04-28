@@ -1,17 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { BASE_API_URL, API_KEY } from "./constants";
-import { SearchResultsQueryResponse, SearchResultsResponse } from "./types";
+import { SearchResultsItem, SearchResultsQueryResponse } from "./types";
 import { useState } from "react";
 
 // ----------------------------------------------
+
+export type SearchResultsResponse = {
+  foods: SearchResultsItem[];
+};
 
 const fetchSearchResults = async (
   searchTerm: string,
 ): Promise<SearchResultsResponse> => {
   const response = await fetch(
     // `${BASE_API_URL}?api_key=${API_KEY}&query=+${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
-    `${BASE_API_URL}?api_key=${API_KEY}&query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+    `${BASE_API_URL}search?api_key=${API_KEY}&query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
   );
 
   if (!response.ok) {
@@ -42,6 +46,41 @@ export function useSearchResults(
 
   return {
     searchResults: data?.foods,
+    isLoading: isInitialLoading,
+  } as const;
+}
+
+// ----------------------------------------------
+
+const fetchItemDetails = async (itemId: string) => {
+  const response = await fetch(
+    `${BASE_API_URL}food/${itemId}?api_key=${API_KEY}`,
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.description);
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export function useItemDetails(itemId: string) {
+  const { data, isInitialLoading } = useQuery(
+    ["item-id", itemId],
+    () => fetchItemDetails(itemId),
+    {
+      staleTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(itemId),
+      //   onError: handleError,
+    },
+  );
+
+  return {
+    itemDetails: data,
     isLoading: isInitialLoading,
   } as const;
 }

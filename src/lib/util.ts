@@ -23,3 +23,20 @@ export const sortBrandItems = (results: SearchResultsItem[]) => {
     return 0;
   });
 };
+
+export const enhanceSearchTerm = (searchInput: string) => {
+  let searchTermLength = 0;
+
+  const enhancedSearchTerm = searchInput
+    .split(" ")
+    .map((word) => {
+      searchTermLength++;
+      return `+${word}`;
+    })
+    .join(" ");
+
+  return {
+    searchTermLength,
+    enhancedSearchTerm,
+  };
+};
