@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { BASE_API_URL, API_KEY } from "./constants";
 import { SearchResultsItem, SearchResultsQueryResponse } from "./types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // ----------------------------------------------
 
@@ -52,41 +52,6 @@ export function useSearchResults(
 
 // ----------------------------------------------
 
-const fetchItemDetails = async (itemId: string) => {
-  const response = await fetch(
-    `${BASE_API_URL}food/${itemId}?api_key=${API_KEY}`,
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.description);
-  }
-
-  const data = await response.json();
-  return data;
-};
-
-export function useItemDetails(itemId: string) {
-  const { data, isInitialLoading } = useQuery(
-    ["item-id", itemId],
-    () => fetchItemDetails(itemId),
-    {
-      staleTime: 1000 * 60 * 60,
-      refetchOnWindowFocus: false,
-      retry: false,
-      enabled: Boolean(itemId),
-      //   onError: handleError,
-    },
-  );
-
-  return {
-    itemDetails: data,
-    isLoading: isInitialLoading,
-  } as const;
-}
-
-// ----------------------------------------------
-
 type PageResults = {
   currentPage: number;
   handlePrevPage: () => void;
@@ -113,3 +78,141 @@ export function usePageResults(): PageResults {
 }
 
 // ----------------------------------------------
+
+type FoodNutrients = {
+  amount: number;
+  nutrient: {
+    name: string;
+    unitName: string;
+  };
+  // nutrient.name?: string;
+  // unitName?: string;
+}[];
+
+type FullItemDetails = {
+  description: string;
+  foodNutrients: FoodNutrients;
+};
+
+const fetchItemDetails = async (itemId: string): Promise<FullItemDetails> => {
+  const response = await fetch(
+    `${BASE_API_URL}food/${itemId}?api_key=${API_KEY}`,
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.description);
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+export function useFilterItemDetails(itemId: string) {
+  const { data, isInitialLoading } = useQuery(
+    ["item-id", itemId],
+    () => fetchItemDetails(itemId),
+    {
+      staleTime: 1000 * 60 * 60,
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: Boolean(itemId),
+      //   onError: handleError,
+    },
+  );
+
+  return {
+    itemName: data?.description,
+    itemNutrients: data?.foodNutrients,
+    isLoading: isInitialLoading,
+  } as const;
+}
+
+// ----------------------------------------------
+
+export function useItemMacros(nutrients: FoodNutrients) {
+  console.log("useItemMacros called");
+
+  const [multiplier, setMultiplier] = useState(1);
+
+  const [calories, setCalories] = useState(0);
+  const [protein, setProtein] = useState(0);
+  const [fat, setFat] = useState(0);
+  const [carbs, setCarbs] = useState(0);
+  console.log("initial null state set");
+
+  const calculateByServing = (newServingAmount: number | string) => {
+    // event.preventDefault();  need to do this in the handler
+    const enteredValue = newServingAmount;
+    if (enteredValue == 0 || enteredValue === "") return;
+    setMultiplier(+enteredValue / 100);
+
+    // enteredServingSizeRef.current.value = ""; need to do these in the handler
+    // enteredProteinAmountRef.current.value = "";
+    console.log(multiplier);
+  };
+
+  const calculateByProtein = (newProteinAmount: number | string) => {
+    // event.preventDefault();  need to do this in the handler
+    const enteredValue = newProteinAmount;
+    if (enteredValue == 0 || enteredValue === "") return;
+    setMultiplier(+enteredValue / protein);
+
+    // enteredServingSizeRef.current.value = ""; need to do these in the handler
+    // enteredProteinAmountRef.current.value = "";
+    console.log(multiplier);
+  };
+
+  useEffect(() => {
+    if (nutrients) {
+      console.log(nutrients);
+
+      for (let i = 0; i < nutrients.length; i++) {
+        if (nutrients[i].nutrient.name === "Protein") {
+          setProtein(nutrients[i].amount);
+        }
+
+        if (nutrients[i].nutrient.name === "Total lipid (fat)") {
+          setFat(nutrients[i].amount);
+        }
+
+        if (nutrients[i].nutrient.name === "Carbohydrate, by difference") {
+          setCarbs(nutrients[i].amount);
+        }
+
+        if (
+          (nutrients[i].nutrient.name === "Energy" ||
+            nutrients[i].nutrient.name ===
+              "Energy (Atwater Specific Factors)") &&
+          nutrients[i].nutrient.unitName === "kcal"
+        ) {
+          setCalories(nutrients[i].amount);
+        }
+      }
+    }
+  }, [nutrients]);
+
+  // console.log(`calories: ${calories}`);
+  // console.log(`protein: ${protein}`);
+  // console.log(`carbs: ${carbs}`);
+  // console.log(`fat: ${fat}`);
+
+  // Here
+
+  const displayedGrams = Math.round(100 * multiplier * 10) / 10;
+  const displayedCalories = Math.round(calories * multiplier * 10) / 10;
+  const displayedProtein = Math.round(protein * multiplier * 10) / 10;
+  const displayedCarbs = Math.round(carbs * multiplier * 10) / 10;
+  const displayedFat = Math.round(fat * multiplier * 10) / 10;
+  // const chartData = { displayedProtein, displayedCarbs, displayedFat }; // can happen in itemDetailsPage
+
+  return {
+    displayedGrams,
+    displayedCalories,
+    displayedProtein,
+    displayedCarbs,
+    displayedFat,
+    calculateByProtein,
+    calculateByServing,
+  };
+}
