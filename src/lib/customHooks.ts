@@ -142,25 +142,16 @@ export function useItemMacros(nutrients: FoodNutrients) {
   console.log("initial null state set");
 
   const calculateByServing = (newServingAmount: number | string) => {
-    // event.preventDefault();  need to do this in the handler
     const enteredValue = newServingAmount;
     if (enteredValue == 0 || enteredValue === "") return;
     setMultiplier(+enteredValue / 100);
-
-    // enteredServingSizeRef.current.value = ""; need to do these in the handler
-    // enteredProteinAmountRef.current.value = "";
-    console.log(multiplier);
   };
 
   const calculateByProtein = (newProteinAmount: number | string) => {
-    // event.preventDefault();  need to do this in the handler
+    console.log(`newProteinAmount: ${newProteinAmount}`);
     const enteredValue = newProteinAmount;
     if (enteredValue == 0 || enteredValue === "") return;
     setMultiplier(+enteredValue / protein);
-
-    // enteredServingSizeRef.current.value = ""; need to do these in the handler
-    // enteredProteinAmountRef.current.value = "";
-    console.log(multiplier);
   };
 
   useEffect(() => {
@@ -192,19 +183,11 @@ export function useItemMacros(nutrients: FoodNutrients) {
     }
   }, [nutrients]);
 
-  // console.log(`calories: ${calories}`);
-  // console.log(`protein: ${protein}`);
-  // console.log(`carbs: ${carbs}`);
-  // console.log(`fat: ${fat}`);
-
-  // Here
-
   const displayedGrams = Math.round(100 * multiplier * 10) / 10;
   const displayedCalories = Math.round(calories * multiplier * 10) / 10;
   const displayedProtein = Math.round(protein * multiplier * 10) / 10;
   const displayedCarbs = Math.round(carbs * multiplier * 10) / 10;
   const displayedFat = Math.round(fat * multiplier * 10) / 10;
-  // const chartData = { displayedProtein, displayedCarbs, displayedFat }; // can happen in itemDetailsPage
 
   return {
     displayedGrams,
