@@ -56,6 +56,9 @@ export default function ItemDetailsPage() {
     setUserServingInput("");
   };
 
+  //   test
+  // const displayedMacros = {}
+
   return (
     <div className="  px-4 py-6 font-medium text-gray-700">
       <div className=" sm:flex">
@@ -140,7 +143,7 @@ export default function ItemDetailsPage() {
               </button>
               <input
                 value={userProteinInput}
-                onChange={(e) => handleProteinInputChange}
+                onChange={handleProteinInputChange}
                 id="grams of protein"
                 type="number"
                 className="mx-2 w-20 rounded border border-gray-400 px-2 py-1 sm:w-5/12"
