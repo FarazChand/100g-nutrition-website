@@ -1,4 +1,14 @@
-export default function ItemDetailsMacros({}) {
+import { TbDna } from "react-icons/tb";
+import { CiWheat } from "react-icons/ci";
+import { GiMolecule } from "react-icons/gi";
+import { BsBatteryCharging } from "react-icons/bs";
+
+export default function ItemDetailsMacros({
+  displayedCalories,
+  displayedProtein,
+  displayedCarbs,
+  displayedFat,
+}) {
   return (
     <ul className="animate-navLinkFade list-disc sm:mt-4">
       <li className="flex max-w-[10rem]">

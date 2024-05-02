@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 
 import { useFilterItemDetails, useItemMacros } from "../../lib/customHooks";
+import ItemDetailsMacros from "./ItemDetailsMacros";
 
 export default function ItemDetailsPage() {
   const [userProteinInput, setUserProteinInput] = useState("");
@@ -69,7 +70,7 @@ export default function ItemDetailsPage() {
             {"g"} :
           </h3>
 
-          <ul className="animate-navLinkFade list-disc sm:mt-4">
+          {/* <ul className="animate-navLinkFade list-disc sm:mt-4">
             <li className="flex max-w-[10rem]">
               <BsBatteryCharging className="ml-1 mr-[.5rem] mt-1 text-blue-500" />
               {displayedCalories} cal{" "}
@@ -89,7 +90,13 @@ export default function ItemDetailsPage() {
               />
               {displayedFat} g of fat{" "}
             </li>
-          </ul>
+          </ul> */}
+          <ItemDetailsMacros
+            displayedCalories={displayedCalories}
+            displayedProtein={displayedProtein}
+            displayedCarbs={displayedCarbs}
+            displayedFat={displayedFat}
+          />
         </div>
 
         {/* <div className="mx-auto mt-4 max-w-[13.5rem] sm:mt-0">
