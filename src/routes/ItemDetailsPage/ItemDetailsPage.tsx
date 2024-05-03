@@ -61,51 +61,31 @@ export default function ItemDetailsPage() {
   // const displayedMacros = {}
 
   return (
-    <div className="  px-4 py-6 font-medium text-gray-700">
-      <div className=" sm:flex">
-        <div>
-          <h2 className="text-2xl font-bold sm:mt-2"> {itemName}</h2>
-          <h3 className="mt-2 text-xl sm:mt-6">
-            For {displayedGrams}
-            {"g"} :
-          </h3>
+    <main className="mx-auto w-10/12 max-w-3xl py-10">
+      <div className="  px-4 py-6 font-medium text-gray-700">
+        <div className=" sm:flex">
+          <div>
+            <h2 className="text-2xl font-bold sm:mt-2"> {itemName}</h2>
+            <h3 className="mt-2 text-xl sm:mt-6">
+              For {displayedGrams}
+              {"g"} :
+            </h3>
 
-          {/* <ul className="animate-navLinkFade list-disc sm:mt-4">
-            <li className="flex max-w-[10rem]">
-              <BsBatteryCharging className="ml-1 mr-[.5rem] mt-1 text-blue-500" />
-              {displayedCalories} cal{" "}
-            </li>
-            <li className="flex max-w-[10rem]">
-              <TbDna className="mr-1 text-red-600" fontSize="1.5em" />
-              {displayedProtein} g of protein{" "}
-            </li>
-            <li className="flex max-w-[10rem]">
-              <CiWheat className="mr-[.3rem] text-green-500" fontSize="1.5em" />
-              {displayedCarbs} g of carbs{" "}
-            </li>
-            <li className="flex max-w-[10rem]">
-              <GiMolecule
-                className="ml-1 mr-[.4rem] text-yellow-500"
-                fontSize="1.2em"
-              />
-              {displayedFat} g of fat{" "}
-            </li>
-          </ul> */}
-          <ItemDetailsMacros
-            displayedCalories={displayedCalories}
-            displayedProtein={displayedProtein}
-            displayedCarbs={displayedCarbs}
-            displayedFat={displayedFat}
-          />
-        </div>
+            <ItemDetailsMacros
+              displayedCalories={displayedCalories}
+              displayedProtein={displayedProtein}
+              displayedCarbs={displayedCarbs}
+              displayedFat={displayedFat}
+            />
+          </div>
 
-        {/* <div className="mx-auto mt-4 max-w-[13.5rem] sm:mt-0">
+          {/* <div className="mx-auto mt-4 max-w-[13.5rem] sm:mt-0">
           <NutritionItemDetailChart
             chartData={chartData}
             calories={displayedCalories}
           />
         </div> */}
-
+        </div>
         <h4 className="mt-6 text-base font-medium">
           You can calculate new values based on serving size or the amount of
           protein required.
@@ -160,6 +140,6 @@ export default function ItemDetailsPage() {
           </div>
         </form>
       </div>
-    </div>
+    </main>
   );
 }
