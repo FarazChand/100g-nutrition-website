@@ -9,6 +9,7 @@ import { useRef, useState } from "react";
 
 import { useFilterItemDetails, useItemMacros } from "../../lib/customHooks";
 import ItemDetailsMacros from "./ItemDetailsMacros";
+import ItemDetailsChart from "./ItemDetailsChart";
 
 export default function ItemDetailsPage() {
   const [userProteinInput, setUserProteinInput] = useState("");
@@ -79,6 +80,12 @@ export default function ItemDetailsPage() {
             />
           </div>
 
+          <ItemDetailsChart
+            displayedCalories={displayedCalories}
+            displayedProtein={displayedProtein}
+            displayedCarbs={displayedCarbs}
+            displayedFat={displayedFat}
+          />
           {/* <div className="mx-auto mt-4 max-w-[13.5rem] sm:mt-0">
           <NutritionItemDetailChart
             chartData={chartData}
