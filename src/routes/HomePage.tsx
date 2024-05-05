@@ -4,6 +4,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+      <p>Intro Text</p>
     </main>
   );
 }
