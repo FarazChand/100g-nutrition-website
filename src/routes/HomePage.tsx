@@ -6,7 +6,6 @@ export default function HomePage() {
       <Hero />
       <p>Intro Text</p>
       <p>Intro Text</p>
-      <p>Intro Text</p>
     </main>
   );
 }
