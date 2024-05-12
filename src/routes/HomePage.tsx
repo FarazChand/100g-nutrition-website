@@ -5,6 +5,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <p>Intro Text</p>
+      <p>Intro Text</p>
     </main>
   );
 }
