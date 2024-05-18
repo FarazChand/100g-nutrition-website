@@ -40,3 +40,5 @@ export const enhanceSearchTerm = (searchInput: string) => {
     enhancedSearchTerm,
   };
 };
+
+const exampleFunction = () => {};
