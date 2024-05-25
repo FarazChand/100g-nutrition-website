@@ -7,6 +7,9 @@ export default function HomePage() {
       <p>Intro Text</p>
       <p>Intro Text</p>
       <p>Intro Text</p>
+      <p>Intro Text</p>
+      <p>Intro Text</p>
+      <p>Intro Text</p>
     </main>
   );
 }
