@@ -14,7 +14,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   return {
     define: {
-      "process.env.REACT_APP_API_KEY": JSON.stringify(env.REACT_APP_API_KEY),
+      "process.env.REACT_APP_API_KEY": JSON.stringify(
+        env.REACT_APP_API_BASE_URL,
+      ),
     },
     plugins: [react()],
   };

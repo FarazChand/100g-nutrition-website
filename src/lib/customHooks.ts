@@ -4,6 +4,12 @@ import { BASE_API_URL, API_KEY } from "./constants";
 import { SearchResultsItem, SearchResultsQueryResponse } from "./types";
 import { useEffect, useState } from "react";
 
+const apiURL = process.env.REACT_APP_API_BASE_URL
+  ? process.env.REACT_APP_API_BASE_URL
+  : "http://localhost:5000";
+
+console.log(process.env.REACT_APP_API_BASE_URL);
+
 // ----------------------------------------------
 
 export type SearchResultsResponse = {
@@ -15,7 +21,10 @@ const fetchSearchResults = async (
 ): Promise<SearchResultsResponse> => {
   const response = await fetch(
     // `${BASE_API_URL}?api_key=${API_KEY}&query=+${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
-    `${BASE_API_URL}search?api_key=${API_KEY}&query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+    // `${BASE_API_URL}search?api_key=${API_KEY}&query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+    // `http://localhost:5000/api?query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+    // `https://proxy-server-100gnutrition-e48e77d0fc86.herokuapp.com/api?query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
+    `${apiURL}/api?query=${searchTerm}&dataType=SR%20Legacy&dataType=Foundation`,
   );
 
   if (!response.ok) {
@@ -96,7 +105,10 @@ type FullItemDetails = {
 
 const fetchItemDetails = async (itemId: string): Promise<FullItemDetails> => {
   const response = await fetch(
-    `${BASE_API_URL}food/${itemId}?api_key=${API_KEY}`,
+    // `${BASE_API_URL}food/${itemId}?api_key=${API_KEY}`,
+    // `http://localhost:5000/api/food/${itemId}`,
+    // `https://proxy-server-100gnutrition-e48e77d0fc86.herokuapp.com/api/food/${itemId}`,
+    `${apiURL}/api/food/${itemId}`,
   );
 
   if (!response.ok) {
