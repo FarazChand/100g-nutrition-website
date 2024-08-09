@@ -4,11 +4,7 @@ import { BASE_API_URL, API_KEY } from "./constants";
 import { SearchResultsItem, SearchResultsQueryResponse } from "./types";
 import { useEffect, useState } from "react";
 
-const apiURL = process.env.REACT_APP_API_BASE_URL
-  ? process.env.REACT_APP_API_BASE_URL
-  : "http://localhost:5000";
-
-console.log("apiUrl:", process.env.REACT_APP_API_BASE_URL);
+const apiURL = "https://proxy-server-100gnutrition-e48e77d0fc86.herokuapp.com";
 
 // ----------------------------------------------
 
