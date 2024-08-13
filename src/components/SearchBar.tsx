@@ -32,7 +32,7 @@ export default function SearchBar({ resetPage }: SearchBarProps) {
         value={searchInput}
         type="text"
         onChange={searchInputChangeHandler}
-        className=" w-full rounded border-2 border-black px-3 py-1.5 text-black sm:mr-2 sm:w-10/12 sm:flex-grow "
+        className=" w-full rounded border-2 border-black px-3 py-2 text-black sm:mr-2 sm:w-10/12 sm:flex-grow "
       />
       <button className="mb-2 w-full max-w-full rounded bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-700 sm:mb-0 sm:w-max">
         Search

@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-[0] z-20 flex h-[5rem] items-center justify-around bg-gray-100 sm-max:h-[4rem]">
+    <nav className=" flex h-[5rem] items-center justify-around bg-gray-100  sm-max:h-[4rem]">
       {/* Logo */}
       <div>
         <h4 className="text-xl uppercase tracking-[.3125em]">
@@ -43,7 +43,8 @@ const Navbar = () => {
 
       {/* Nav List */}
       <ul
-        className={`flex w-[60%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%] sm-max:fixed sm-max:right-[0px]  sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[65%] sm-max:grow sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:bg-gray-200 ${navTransitionClasses}`}
+        // Note to future self: I styled desktop first for this component only because the mobile nav is more complex than desktop nav. Generally we want to add complexity instead of removing it, so we style the desktop nav first, then us 'sm-max' to style the mobile nav and add complexity.
+        className={`flex w-[100%] justify-around text-blue-600 transition duration-300 ease-in lg:w-[40%] sm-max:fixed sm-max:right-[0px]  sm-max:top-[4rem] sm-max:flex sm-max:h-[90vh] sm-max:w-[100%] sm-max:grow sm-max:flex-col sm-max:items-center sm-max:justify-evenly sm-max:bg-gray-100 ${navTransitionClasses}`}
       >
         {ROUTES.map((route, i) => (
           <li

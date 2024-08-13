@@ -21,3 +21,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } */
+
+.centered-container {
+  max-width: 980px;
+}

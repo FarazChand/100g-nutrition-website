@@ -1,0 +1,78 @@
+/* form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 7px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--color-primary);
+}
+
+.form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 3rem;
+} */
+
+/* Styles specific to the FormSubmit component */
+.form-container {
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.form-container form {
+  margin-top: 20px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+  width: 100%;
+  padding: 7px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-container input[type="submit"] {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.form-container input[type="submit"]:hover {
+  background-color: var(--color-primary);
+}

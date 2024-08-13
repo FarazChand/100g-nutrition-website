@@ -1,0 +1,7 @@
+#hero {
+  min-height: 100svh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    /* linear-gradient(rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.4)), */
+      url(../assets/hero-image-1.jpg) no-repeat center / cover;
+}

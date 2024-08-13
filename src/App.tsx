@@ -6,6 +6,7 @@ import AboutPage from "./routes/AboutPage/AboutPage";
 import ContactPage from "./routes/ContactPage/ContactPage";
 import SearchResultsPage from "./routes/SearchResultsPage/SearchResultsPage";
 import ItemDetailsPage from "./routes/ItemDetailsPage/ItemDetailsPage";
+import GuidePage from "./routes/GuidePage/GuidePage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "about", element: <AboutPage /> },
+      { path: "guide", element: <GuidePage /> },
       { path: "contact", element: <ContactPage /> },
       {
         path: "search-results",

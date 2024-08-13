@@ -8,7 +8,7 @@ export default function Root() {
     <div className="flex min-h-[100vh] flex-col">
       <Header />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
