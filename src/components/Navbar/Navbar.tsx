@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import Burger from "./Burger";
@@ -19,6 +19,16 @@ const Navbar = () => {
   const [linkSlideIn, setLinkSlideIn] = useState(
     "sm-max:opacity-0 sm-max:translate-x-[50px]",
   );
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+
+  // Update the isMobile state based on the window width
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleNavHandler = () => {
     if (navIsOpen) {
@@ -51,6 +61,7 @@ const Navbar = () => {
             key={i}
             style={{ transitionDelay: `${i * 100}ms` }}
             className={`transition duration-1000 ${linkSlideIn} flex w-full items-center justify-center`}
+            onClick={isMobile ? toggleNavHandler : undefined}
           >
             <NavLink
               to={route.path}
