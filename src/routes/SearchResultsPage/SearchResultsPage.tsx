@@ -10,6 +10,7 @@ import {
 import { RESULTS_PER_PAGE } from "../../lib/constants.ts";
 import SearchResults from "./SearchResults.tsx";
 import Button from "../../components/Button.tsx";
+import Loader from "../../components/Loader/Loader.tsx";
 
 export default function SearchResultsPage() {
   const { currentPage, handleNextPage, handlePrevPage, resetPage } =
@@ -30,13 +31,15 @@ export default function SearchResultsPage() {
 
   const { searchResults, isLoading } = useSearchResults(enhancedSearchTerm);
 
+  // ******** JSX FOR LOADING ***********
   if (!searchResults) {
     return (
-      <main>
-        <h2>Loading...</h2>
+      <main className="mx-auto w-10/12 max-w-3xl py-10">
+        <Loader />
       </main>
     );
   }
+  // ************************************
 
   const numberOfPages = searchResults.length / RESULTS_PER_PAGE;
   const onFirstPage = !(currentPage !== 0);
@@ -59,7 +62,7 @@ export default function SearchResultsPage() {
   }
 
   return (
-    <main className="mx-auto w-10/12 max-w-3xl py-10">
+    <main className="mx-auto mt-24 w-10/12 max-w-3xl py-10 ">
       <SearchBar resetPage={resetPage} />
 
       <SearchResults currentPageResults={currentPageResults} />

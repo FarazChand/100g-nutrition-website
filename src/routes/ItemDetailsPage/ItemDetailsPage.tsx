@@ -62,7 +62,7 @@ export default function ItemDetailsPage() {
   // const displayedMacros = {}
 
   return (
-    <main className="mx-auto w-10/12 max-w-3xl py-10">
+    <main className="mx-auto mt-24 w-10/12 max-w-3xl py-10">
       <div className="  px-4 py-6 font-medium text-gray-700">
         <div className=" sm:flex">
           <div>
