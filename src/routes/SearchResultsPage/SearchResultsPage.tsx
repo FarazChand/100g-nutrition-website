@@ -44,6 +44,7 @@ export default function SearchResultsPage() {
   const numberOfPages = searchResults.length / RESULTS_PER_PAGE;
   const onFirstPage = !(currentPage !== 0);
   const onLastPage = !(currentPage < numberOfPages - 1);
+
   const currentPageResults = [];
   let sortedResults = [...searchResults];
 
